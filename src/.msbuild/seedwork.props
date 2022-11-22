@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <!--        Actual version of Seedwork packages. -->
+    <!--    IMPORTANT: run 'dotnet restore -f' in Terminal after change value bellow. See details in ReadMe.md -->
+    <SeedworkVersion>15.5.8</SeedworkVersion>
+  </PropertyGroup>
+</Project>

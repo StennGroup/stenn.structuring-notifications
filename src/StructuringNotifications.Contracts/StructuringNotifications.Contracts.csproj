@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <EnableExtension_RestrictProjectReference>true</EnableExtension_RestrictProjectReference>
+    </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="Seedwork.Messaging.Contracts" />
+    </ItemGroup>
+</Project>

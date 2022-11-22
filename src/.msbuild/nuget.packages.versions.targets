@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <!--    Nuget packages versions and assets for all Onbording projects-->
+  <!--    Read details https://www.notion.so/Nuget-props-f3f3e6a4f85c4a5cae4bd3ed83c4f196-->
+
+  <!--    Versions-->
+  <ItemGroup>
+    <!--        Third-party packages versions & overrides -->
+
+    <PackageReference Update="Polly.Contrib.WaitAndRetry" Version="1.1.1" />
+    <PackageReference Update="Microsoft.Extensions.Http.Polly" Version="6.0.10" />
+
+  </ItemGroup>
+
+  <!--    Regex for searching common case without assets-->
+  <!--    (<\s*PackageReference\s+Include\s*=\s*".+?")\s+Version\s*=\s*".+?"\s*/>-->
+</Project>

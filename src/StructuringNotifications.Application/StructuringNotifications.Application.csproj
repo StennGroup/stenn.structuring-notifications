@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+        <PackageReference Include="Seedwork.Auth" />
+        <PackageReference Include="Seedwork.Messaging.Abstractions" />
+        <PackageReference Include="Seedwork.UnitOfWork" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\StructuringNotifications.Application.Api\StructuringNotifications.Application.Api.csproj" />
+    </ItemGroup>
+</Project>

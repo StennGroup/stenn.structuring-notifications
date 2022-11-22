@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <PropertyGroup>
+    <Product>Stenn StructuringNotifications</Product>
+    <TargetFrameworks>net6.0</TargetFrameworks>    
+  </PropertyGroup>
+
+  <!--  NOTE: Publish doesn't support TargetFrameworks-->
+  <PropertyGroup Condition="'$(MSBuildProjectName)'=='StructuringNotifications.WebApp'">
+    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks/>
+  </PropertyGroup>
+
+  <!--  Enable checks for nuget.packages.versions files-->
+  <ItemGroup>
+    <NugetVersionsFilePath Include="$(MSBuildThisFileDirectory)**\*nuget.packages.versions.targets"/>
+  </ItemGroup>
+  
+  <PropertyGroup>
+    <TestsDir>$(MSBuildThisFileDirectory)..\</TestsDir>
+    <!-- 
+    This automatically applies InternalsVisibleToAttribute to all the projects
+    so their internal classes will be visible to all the projects with '.Tests' name ending.
+    -->
+    <InternalsVisibleToAllTestsProjects>true</InternalsVisibleToAllTestsProjects>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RepositoryRootDir>$(MSBuildThisFileDirectory)..\..\</RepositoryRootDir>
+  </PropertyGroup>
+</Project>

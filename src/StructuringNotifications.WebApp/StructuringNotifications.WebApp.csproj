@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.ApplicationInsights.Profiler.AspNetCore" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" />
+        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" />
+        <PackageReference Include="Microsoft.Extensions.Options" />
+        <PackageReference Include="NServiceBus.Extensions.Logging" />
+        <PackageReference Include="Seedwork.ServiceBus" />
+        <PackageReference Include="Seedwork.Web.ServiceBus" />
+        <PackageReference Include="Seedwork.Web" />
+        <PackageReference Include="Serilog.AspNetCore" />
+        <PackageReference Include="Swashbuckle.AspNetCore" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" />
+        <PackageReference Include="Stenn.AspNetCore.Versioning.Extensions.DependencyInjection" />
+        <PackageReference Include="Polly.Contrib.WaitAndRetry" />
+        <PackageReference Include="Microsoft.Extensions.Http.Polly" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\StructuringNotifications.Application.Api\StructuringNotifications.Application.Api.csproj" />
+        <ProjectReference Include="..\StructuringNotifications.Application\StructuringNotifications.Application.csproj" />
+        <ProjectReference Include="..\StructuringNotifications.Contracts\StructuringNotifications.Contracts.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Update="appsettings.Development.json">
+        <DependentUpon>appsettings.json</DependentUpon>
+      </Content>
+      <Content Update="appsettings.Prod.json">
+        <DependentUpon>appsettings.json</DependentUpon>
+      </Content>
+    </ItemGroup>
+</Project>

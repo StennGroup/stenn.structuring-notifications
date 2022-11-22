@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <!--    Overrides for nuget packages group versions from seedwork\deps.nuget.packages.versions.targets -->
+
+  <PropertyGroup>
+    
+<!--      <EntityFrameworkCoreVersion></EntityFrameworkCoreVersion>-->
+<!--      <StennAspNetCoreVersioningVersion></StennAspNetCoreVersioningVersion>-->
+<!--      <StennEntityFrameworkCoreVersion></StennEntityFrameworkCoreVersion>-->
+<!--      <Auth0Version></Auth0Version>-->
+<!--      <SwashbuckleVersion></SwashbuckleVersion>-->
+<!--      <MicrosoftExtensionsVersion></MicrosoftExtensionsVersion>-->
+<!--      <MicrosoftODataVersion></MicrosoftODataVersion>-->
+<!--      <EntityFrameworkCoreVersion></EntityFrameworkCoreVersion>-->
+
+  </PropertyGroup>
+
+</Project>

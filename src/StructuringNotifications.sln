@@ -1,0 +1,124 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Application", "1 - Application", "{ECBF6C22-095C-43ED-B998-4EC677B7E2F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Interop", "3 - Interop", "{82ADF081-6EA3-4433-8C24-AFD468EF3050}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contracts", "Contracts", "{7F36EF81-B391-49E7-B4CB-D625AA074D4C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8ECCB208-7739-4E87-9927-4609E96A0ECB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StructuringNotifications.WebApp", "StructuringNotifications.WebApp\StructuringNotifications.WebApp.csproj", "{A9D5C34A-05E1-47FD-AC15-F1A221C55BC8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StructuringNotifications.Application", "StructuringNotifications.Application\StructuringNotifications.Application.csproj", "{83C9CE8F-1233-43F8-82A1-1CD15D463B75}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StructuringNotifications.Application.Api", "StructuringNotifications.Application.Api\StructuringNotifications.Application.Api.csproj", "{D11F7311-4C18-48D9-8AEF-C74C46619A89}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StructuringNotifications.Contracts", "StructuringNotifications.Contracts\StructuringNotifications.Contracts.csproj", "{D288B78E-BCC0-4955-B3A2-4A9E106F731D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StructuringNotifications.ScriptUnits", "StructuringNotifications.ScriptUnits\StructuringNotifications.ScriptUnits.csproj", "{82764163-A782-41E8-95E0-B0F592074440}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StructuringNotifications.Tests", "StructuringNotifications.Tests\StructuringNotifications.Tests.csproj", "{B9DAB65E-B02E-4DB1-9993-FA44B51DB111}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solutionitems", ".solutionitems", "{EF055E3C-A522-4AA5-9100-84D0E2355558}"
+	ProjectSection(SolutionItems) = preProject
+		..\.dockerignore = ..\.dockerignore
+		..\.gitignore = ..\.gitignore
+		nuget.config = nuget.config
+		..\README.md = ..\README.md
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pipeline", "Pipeline", "{8CFAC9D9-4D84-410B-941E-25879FFCDBBE}"
+	ProjectSection(SolutionItems) = preProject
+		..\pipelines\deploy-nuget.yml = ..\pipelines\deploy-nuget.yml
+		..\pipelines\deploy.yaml = ..\pipelines\deploy.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - EntryPoints", "4 - EntryPoints", "{BA417F5D-F30D-44FC-B794-BCEF8F77770F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".msbuild", ".msbuild", "{117EF102-AFC4-43A3-A3E3-34AB9BB7F00B}"
+	ProjectSection(SolutionItems) = preProject
+		.msbuild\app.services.contracts.nuget.packages.versions.targets = .msbuild\app.services.contracts.nuget.packages.versions.targets
+		.msbuild\build.props = .msbuild\build.props
+		.msbuild\nuget.packages.versions.targets = .msbuild\nuget.packages.versions.targets
+		.msbuild\README.md = .msbuild\README.md
+		.msbuild\seedwork.props = .msbuild\seedwork.props
+		.msbuild\nuget.packages.group.versions.targets = .msbuild\nuget.packages.group.versions.targets
+		..\..\local.profile.props = ..\..\local.profile.props
+		..\..\local.profile.targets = ..\..\local.profile.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "seedwork.restore", "seedwork.restore", "{AEE9F620-63E7-4AA7-8CA8-C7EB78C28AB9}"
+	ProjectSection(SolutionItems) = preProject
+		.msbuild\seedwork.restore\Directory.Build.props = .msbuild\seedwork.restore\Directory.Build.props
+		.msbuild\seedwork.restore\Directory.Build.targets = .msbuild\seedwork.restore\Directory.Build.targets
+		.msbuild\seedwork.restore\README.md = .msbuild\seedwork.restore\README.md
+		.msbuild\seedwork.restore\seedwork.restore.csproj = .msbuild\seedwork.restore\seedwork.restore.csproj
+		.msbuild\seedwork.restore\seedwork.restore.props = .msbuild\seedwork.restore\seedwork.restore.props
+		.msbuild\seedwork.restore\seedwork.restore.targets = .msbuild\seedwork.restore\seedwork.restore.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utils", "utils", "{C7E15567-A144-4982-A099-2076D2D24F1A}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9D5C34A-05E1-47FD-AC15-F1A221C55BC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9D5C34A-05E1-47FD-AC15-F1A221C55BC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9D5C34A-05E1-47FD-AC15-F1A221C55BC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9D5C34A-05E1-47FD-AC15-F1A221C55BC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83C9CE8F-1233-43F8-82A1-1CD15D463B75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83C9CE8F-1233-43F8-82A1-1CD15D463B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83C9CE8F-1233-43F8-82A1-1CD15D463B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83C9CE8F-1233-43F8-82A1-1CD15D463B75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D11F7311-4C18-48D9-8AEF-C74C46619A89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D11F7311-4C18-48D9-8AEF-C74C46619A89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D11F7311-4C18-48D9-8AEF-C74C46619A89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D11F7311-4C18-48D9-8AEF-C74C46619A89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8756959C-FB24-4391-95E0-D71E94A9479C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8756959C-FB24-4391-95E0-D71E94A9479C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8756959C-FB24-4391-95E0-D71E94A9479C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8756959C-FB24-4391-95E0-D71E94A9479C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D288B78E-BCC0-4955-B3A2-4A9E106F731D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D288B78E-BCC0-4955-B3A2-4A9E106F731D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D288B78E-BCC0-4955-B3A2-4A9E106F731D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D288B78E-BCC0-4955-B3A2-4A9E106F731D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82764163-A782-41E8-95E0-B0F592074440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82764163-A782-41E8-95E0-B0F592074440}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82764163-A782-41E8-95E0-B0F592074440}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82764163-A782-41E8-95E0-B0F592074440}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9DAB65E-B02E-4DB1-9993-FA44B51DB111}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9DAB65E-B02E-4DB1-9993-FA44B51DB111}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9DAB65E-B02E-4DB1-9993-FA44B51DB111}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9DAB65E-B02E-4DB1-9993-FA44B51DB111}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A9D5C34A-05E1-47FD-AC15-F1A221C55BC8} = {BA417F5D-F30D-44FC-B794-BCEF8F77770F}
+		{83C9CE8F-1233-43F8-82A1-1CD15D463B75} = {ECBF6C22-095C-43ED-B998-4EC677B7E2F0}
+		{D11F7311-4C18-48D9-8AEF-C74C46619A89} = {ECBF6C22-095C-43ED-B998-4EC677B7E2F0}
+		{8756959C-FB24-4391-95E0-D71E94A9479C} = {3099B2C1-4B0A-44F5-8F3C-51B7CD6EEBF1}
+		{D288B78E-BCC0-4955-B3A2-4A9E106F731D} = {7F36EF81-B391-49E7-B4CB-D625AA074D4C}
+		{82764163-A782-41E8-95E0-B0F592074440} = {8ECCB208-7739-4E87-9927-4609E96A0ECB}
+		{B9DAB65E-B02E-4DB1-9993-FA44B51DB111} = {8ECCB208-7739-4E87-9927-4609E96A0ECB}
+		{8CFAC9D9-4D84-410B-941E-25879FFCDBBE} = {EF055E3C-A522-4AA5-9100-84D0E2355558}
+		{AEE9F620-63E7-4AA7-8CA8-C7EB78C28AB9} = {117EF102-AFC4-43A3-A3E3-34AB9BB7F00B}
+		{C7E15567-A144-4982-A099-2076D2D24F1A} = {117EF102-AFC4-43A3-A3E3-34AB9BB7F00B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BDCBEB9-2B49-4BF7-828C-3A661944D128}
+	EndGlobalSection
+EndGlobal

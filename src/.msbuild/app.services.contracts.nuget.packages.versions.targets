@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <!--    Nuget packages versions and assets for all dependency app services contracts-->
+  <!--    Read details https://www.notion.so/Nuget-props-f3f3e6a4f85c4a5cae4bd3ed83c4f196-->
+
+  <!-- Example: <PackageReference Update="Operations.Contracts" Version="0.8.0"/> -->
+</Project>
