@@ -35,9 +35,7 @@ public class OperationsApiClient : IOperationsApi
                    "tradeRelation($select=id,sellerId,buyerId,doNotGenerateNotice,oneTimeNoticeId,sourceSystemId;" +
                    "$expand=seller($select=id,onboardingId,duns,name)," +
                    "buyer($select=id,onboardingId,duns,name,allowToSendOverdueInformation))";
-        var d = await _httpClient.GetStringAsync(path, token);
-        //var data = await _httpClient.GetFromJsonAsync<OData<InvoiceDto>>(path, _serializerOptions, token);
-        var data = JsonSerializer.Deserialize<OData<InvoiceDto>>(d, _serializerOptions);
+        var data = await _httpClient.GetFromJsonAsync<OData<InvoiceDto>>(path, token);
         return data?.Value ?? new List<InvoiceDto>();
     }
 
