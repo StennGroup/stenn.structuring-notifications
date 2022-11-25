@@ -75,13 +75,10 @@ namespace StructuringNotifications.WebApp
                     });
             });
 
-            services.AddTaskExecutor();
-
             services.AddApiVersion();
 
             services
-                .AddApplicationServices()
-                ;
+                .AddApplicationServices();
         }
 
         private void ConfigureHttpClient(IServiceCollection services)
