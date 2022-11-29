@@ -2,8 +2,6 @@
 using Stenn.AspNetCore.Versioning;
 using Stenn.AspNetCore.Versioning.Extensions.DependencyInjection;
 
-#pragma warning disable CS1591
-
 namespace StructuringNotifications.WebApp
 {
     public static class ServiceCollectionExtensions

@@ -1,6 +1,5 @@
 namespace StructuringNotifications.Interop;
 
-#pragma warning disable CS1591
 public interface IOperationsApiConfiguration
 {
     public string RootUrlOperationsApi { get; set; }

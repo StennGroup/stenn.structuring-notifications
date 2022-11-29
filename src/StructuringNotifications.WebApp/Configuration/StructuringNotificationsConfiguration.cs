@@ -7,8 +7,6 @@ using Seedwork.Web.Configuration;
 using StructuringNotifications.Application;
 using StructuringNotifications.Interop;
 
-#pragma warning disable CS1591
-
 namespace StructuringNotifications.WebApp.Configuration
 {
     public class StructuringNotificationsConfiguration :
@@ -38,12 +36,5 @@ namespace StructuringNotifications.WebApp.Configuration
         public string OperationsApiAdTenantId { get; set; }
         public string[] CompanyDunsesToNotify { get; set; }
         public ServiceBusConfiguration ServiceBusConfiguration { get; set; }
-    }
-    
-    public class LoginPassword
-    {
-        public string Login { get; set; }
-
-        public string Password { get; set; }
     }
 }

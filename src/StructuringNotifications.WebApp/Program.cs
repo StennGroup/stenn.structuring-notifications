@@ -1,8 +1,6 @@
 using System.Threading.Tasks;
 using StructuringNotifications.WebApp.Infrastructure;
 
-#pragma warning disable CS1591
-
 namespace StructuringNotifications.WebApp
 {
     public class Program

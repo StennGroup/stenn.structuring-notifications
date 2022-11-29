@@ -20,9 +20,11 @@ public static class ServiceCollectionExtensions
                     client.BaseAddress = new Uri($"{config.RootUrlOperationsApi}/");
                 })
             .AddHttpMessageHandler<HttpLoggingHandler>();
-        
+
         if (env != "Development")
+        {
             clientBuilder.AddHttpMessageHandler<OperationsApiAuthenticationHandler>();
+        }
         
         return serviceProvider;
     }

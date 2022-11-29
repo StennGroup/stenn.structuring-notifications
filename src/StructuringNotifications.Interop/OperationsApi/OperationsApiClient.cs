@@ -36,6 +36,7 @@ public class OperationsApiClient : IOperationsApi
                    "$expand=seller($select=id,onboardingId,duns,name)," +
                    "buyer($select=id,onboardingId,duns,name,allowToSendOverdueInformation))";
         var data = await _httpClient.GetFromJsonAsync<OData<InvoiceDto>>(path, token);
+        
         return data?.Value ?? new List<InvoiceDto>();
     }
 

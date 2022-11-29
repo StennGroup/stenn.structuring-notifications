@@ -25,8 +25,6 @@ using StructuringNotifications.Interop;
 using StructuringNotifications.WebApp.Configuration;
 using StructuringNotifications.WebApp.Infrastructure;
 
-#pragma warning disable CS1591
-
 namespace StructuringNotifications.WebApp
 {
     public class Startup : SeedworkStartup<StructuringNotificationsConfiguration>

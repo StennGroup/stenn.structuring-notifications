@@ -3,8 +3,6 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using StructuringNotifications.Application.Api;
 
-#pragma warning disable CS1591
-
 namespace StructuringNotifications.WebApp.Infrastructure
 {
     public sealed class SecurityContextProvider

@@ -15,9 +15,6 @@ public class EssarNotificationsController: ControllerBase
 {
     private readonly EssarOverdueNotificationService _overdueNotificationService;
 
-    /// <summary>
-    /// </summary>
-    /// <param name="overdueNotificationService"></param>
     public EssarNotificationsController(EssarOverdueNotificationService overdueNotificationService)
     {
         _overdueNotificationService = overdueNotificationService;
