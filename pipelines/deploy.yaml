@@ -22,6 +22,6 @@ extends:
       ServiceName: 'structuring-notifications'
       DockerFilePath: 'src/StructuringNotifications.WebApp/Dockerfile'
       BuildContext: './src'
-    ExecuteTests: YesWithSqlServer
+    ExecuteTests: Yes
     ProjectsToTest:
     - 'StructuringNotifications.sln'
