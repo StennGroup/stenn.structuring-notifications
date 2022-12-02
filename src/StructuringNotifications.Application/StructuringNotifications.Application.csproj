@@ -1,11 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+      <Nullable>enable</Nullable>
+    </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+        <PackageReference Include="OperationsNotifications.Contracts" />
         <PackageReference Include="Seedwork.Auth" />
         <PackageReference Include="Seedwork.Messaging.Abstractions" />
+        <PackageReference Include="Seedwork.SystemDate" />
         <PackageReference Include="Seedwork.UnitOfWork" />
+        <PackageReference Include="System.Linq.Async" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\StructuringNotifications.Application.Api\StructuringNotifications.Application.Api.csproj" />
+      <ProjectReference Include="..\StructuringNotifications.Contracts\StructuringNotifications.Contracts.csproj" />
+      <ProjectReference Include="..\StructuringNotifications.Interop.Abstractions\StructuringNotifications.Interop.Abstractions.csproj" />
     </ItemGroup>
 </Project>

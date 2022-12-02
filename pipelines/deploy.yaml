@@ -19,7 +19,7 @@ extends:
   parameters:
     DockerImages:
     - Img:
-      ServiceName: 'StructuringNotifications'
+      ServiceName: 'structuring-notifications'
       DockerFilePath: 'src/StructuringNotifications.WebApp/Dockerfile'
       BuildContext: './src'
     ExecuteTests: Yes

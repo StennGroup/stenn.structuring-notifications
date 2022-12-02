@@ -2,7 +2,12 @@
 using Seedwork.Configuration;
 using Seedwork.HttpClientHelpers;
 using Seedwork.Logging;
+using Seedwork.ServiceBus;
 using Seedwork.Web.Configuration;
+using StructuringNotifications.Application;
+using StructuringNotifications.Interop;
+
+#pragma warning disable CS1591
 
 namespace StructuringNotifications.WebApp.Configuration
 {
@@ -10,7 +15,10 @@ namespace StructuringNotifications.WebApp.Configuration
         ConfigurationBaseDto,
         ILoggingConfiguration,
         IRequestResponseLoggerMiddlewareConfiguration,
-        ISwaggerConfiguration
+        ISwaggerConfiguration,
+        IOperationsApiConfiguration,
+        IServiceBusConfiguration,
+        IOverdueNotificationsConfiguration
     {
         public string StructuringNotificationsDbContext { get; set; }
 
@@ -18,10 +26,24 @@ namespace StructuringNotifications.WebApp.Configuration
 
         public RequestResponseLoggerMiddlewareConfig RequestResponseLoggerMiddlewareConfig { get; set; }
 
-        public Auth0Configuration Auth0Configuration { get; set; }
+        public LoginPassword BasicAuthentication { get; set; }
 
         public SwaggerConfiguration Swagger { get; set; }
 
         public string HttpRetryPolicyName => "DefaultRetryPolicy";
+        public string RootUrlOperationsApi { get; set; }
+        public string OperationsApiAdClientId { get; set; }
+        public string OperationsApiAdClientSecret { get; set; }
+        public string OperationsApiAdInstance { get; set; }
+        public string OperationsApiAdTenantId { get; set; }
+        public string[] CompanyDunsesToNotify { get; set; }
+        public ServiceBusConfiguration ServiceBusConfiguration { get; set; }
+    }
+    
+    public class LoginPassword
+    {
+        public string Login { get; set; }
+
+        public string Password { get; set; }
     }
 }
