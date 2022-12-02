@@ -47,36 +47,37 @@ public class EssarOverdueNotificationService
     {
         var today = _systemDate.Today;
         LogContext.PushProperty("OverdueNotificationDate", today);
-        
+
         // Don't send anything on Saturday and Sunday
         if (today.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday)
         {
             _logger.Debug("Skip overdue notifications sending due to weekend");
             return;
         }
-        
+
         _logger.Debug("Starting Essar overdue notifications sending");
 
         var notifications = await GetNotifications(0, token);
-        
+
         // On Monday send notifications for Saturday and Sunday
         if (today.DayOfWeek == DayOfWeek.Monday)
         {
             notifications.AddRange(await GetNotifications(1, token));
             notifications.AddRange(await GetNotifications(2, token));
         }
-        
+
         _logger.Debug("Found {NotificationsCount} notifications to send", notifications.Count);
 
         foreach (var notification in notifications)
             _messageSender.Publish(notification);
-        
+
         _logger.Debug("Essar overdue notification sending was finished");
     }
 
     private async Task<List<OverdueEvent>> GetNotifications(int switchDays, CancellationToken token)
         => await OverdueNotificationType.AvailableTypes.ToAsyncEnumerable()
-            .SelectManyAwaitWithCancellation(async (type, innerToken) => (await GetNotifications(switchDays, type, innerToken)).ToAsyncEnumerable())
+            .SelectManyAwaitWithCancellation(async (type, innerToken) =>
+                (await GetNotifications(switchDays, type, innerToken)).ToAsyncEnumerable())
             .ToListAsync(token);
 
     private async Task<IEnumerable<OverdueEvent>> GetNotifications(int switchDays,
@@ -88,14 +89,13 @@ public class EssarOverdueNotificationService
                 _configuration.CompanyDunsesToNotify, token);
 
 
-
         if (!invoices.Any())
             return Enumerable.Empty<OverdueEvent>();
 
         var groupedInvoices = invoices
             .GroupBy(x => x.TradeRelation.SourceSystemId)
             .ToList();
-        
+
         var notifications = new List<OverdueEvent>();
         foreach (var invoiceGroup in groupedInvoices)
         {
@@ -112,6 +112,7 @@ public class EssarOverdueNotificationService
                     invoiceGroup.Key, notificationType.DelayDays);
             }
         }
+
         return notifications;
     }
 
@@ -147,13 +148,13 @@ public class EssarOverdueNotificationService
             .SelectAwaitWithCancellation(GetOwnBankAccount)
             .ToListAsync(token);
 
-        return CreateOverdueEvent(groupedInvoice, notificationType, allInvoiceAttachments, allDealAttachments, 
+        return CreateOverdueEvent(groupedInvoice, notificationType, allInvoiceAttachments, allDealAttachments,
             isAllDealAttachmentsAvailable, bankDetails);
     }
 
-    private OverdueEvent CreateOverdueEvent(IGrouping<string, InvoiceDto> groupedInvoice, 
-        OverdueNotificationType notificationType, IReadOnlyCollection<DocumentLinkDto> allInvoiceAttachments, 
-        IEnumerable<DealAttachmentLinkDto> allDealAttachments, bool isAllDealAttachmentsAvailable, 
+    private OverdueEvent CreateOverdueEvent(IGrouping<string, InvoiceDto> groupedInvoice,
+        OverdueNotificationType notificationType, IReadOnlyCollection<DocumentLinkDto> allInvoiceAttachments,
+        IEnumerable<DealAttachmentLinkDto> allDealAttachments, bool isAllDealAttachmentsAvailable,
         IEnumerable<OwnBankAccountDto> bankDetails)
     {
         return new OverdueEvent
@@ -182,7 +183,6 @@ public class EssarOverdueNotificationService
                         _mapper.Map<MoneyDto>(x.RepaymentAmountOutstandingNationalCurrency),
                     SupplyDate = x.SupplyDate,
                     ShipmentDate = x.ShipmentDate
-
                 })
                 .ToList(),
             NoticeDocuments = allDealAttachments.Select(x => new LinkDto
@@ -209,8 +209,7 @@ public class EssarOverdueNotificationService
 
     private IReadOnlyCollection<OwnBankAccountDto>? _ownBankDetails;
 
-    private async ValueTask<OwnBankAccountDto> GetOwnBankAccount(int currencyCode,
-        CancellationToken token)
+    private async ValueTask<OwnBankAccountDto> GetOwnBankAccount(int currencyCode, CancellationToken token)
     {
         _ownBankDetails ??= await _operationsApiClient.GetOwnBankAccountsAsync(token);
 
@@ -219,4 +218,3 @@ public class EssarOverdueNotificationService
             x.Program == OwnBankAccountProgram.Staf);
     }
 }
-

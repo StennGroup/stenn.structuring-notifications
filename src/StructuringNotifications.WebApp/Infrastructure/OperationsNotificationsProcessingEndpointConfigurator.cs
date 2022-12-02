@@ -4,10 +4,8 @@ using StructuringNotifications.WebApp.Configuration;
 
 namespace StructuringNotifications.WebApp.Infrastructure;
 
-#pragma warning disable CS1591
-
-public class OperationsNotificationsProcessingEndpointConfigurator : ProcessingEndpointConfigurator<
-    StructuringNotificationsConfiguration>
+public class OperationsNotificationsProcessingEndpointConfigurator:
+    ProcessingEndpointConfigurator<StructuringNotificationsConfiguration>
 {
     public override string EndpointName => StructuringNotificationsQueue.Name;
     protected override int ImmediateRetriesCount => 2;

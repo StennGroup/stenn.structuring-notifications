@@ -3,7 +3,6 @@ using StructuringNotifications.WebApp.Configuration;
 
 namespace StructuringNotifications.WebApp.Infrastructure;
 
-#pragma warning disable CS1591
 public class OperationsNotificationsSendOnlyEndpointConfigurator :
     SendOnlyEndpointConfigurator<StructuringNotificationsConfiguration>
 {

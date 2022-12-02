@@ -5,8 +5,6 @@ using Seedwork.UnitOfWork;
 
 namespace StructuringNotifications.WebApp;
 
-#pragma warning disable CS1591
-
 public class SimpleTaskExecutor : ITaskExecutor
 {
 

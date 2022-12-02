@@ -6,8 +6,6 @@ using Seedwork.Web.ServiceBus;
 using Seedwork.Web.ServiceBus.Configuration;
 using StructuringNotifications.WebApp.Configuration;
 
-#pragma warning disable CS1591
-
 namespace StructuringNotifications.WebApp.Infrastructure
 {
     public class StructuringNotificationsServiceHost :
