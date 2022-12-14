@@ -24,4 +24,4 @@ extends:
       BuildContext: './src'
     ExecuteTests: Yes
     ProjectsToTest:
-    - 'StructuringNotifications.sln'
+    - 'src/StructuringNotifications.sln'
