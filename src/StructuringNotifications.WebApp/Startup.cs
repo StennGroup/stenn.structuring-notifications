@@ -82,6 +82,7 @@ namespace StructuringNotifications.WebApp
             services
                 .AddOperationsClient(EnvironmentConfig.EnvironmentName)
                 .AddApplicationServices();
+            //change to trigger pipeline, remove this
         }
 
         private void ConfigureHttpClient(IServiceCollection services)
