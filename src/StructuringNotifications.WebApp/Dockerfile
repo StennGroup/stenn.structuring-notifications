@@ -5,7 +5,7 @@ EXPOSE 443
 
 FROM stenn.azurecr.io/stenn-dotnet-sdk:6.0 AS build
 WORKDIR /src
-COPY src .
+COPY . .
 WORKDIR "/src/StructuringNotifications.WebApp"
 RUN dotnet restore "StructuringNotifications.WebApp.csproj"
 RUN dotnet build "StructuringNotifications.WebApp.csproj" -c Release --no-restore

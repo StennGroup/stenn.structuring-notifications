@@ -8,7 +8,7 @@ pr: none
 
 resources:
   repositories:
-    - repository:  templates
+    - repository: templates
       type: github
       name: StennGroup/stenn.pipeline-lib
       ref: refs/heads/master
@@ -24,4 +24,4 @@ extends:
       BuildContext: './src'
     ExecuteTests: Yes
     ProjectsToTest:
-    - 'StructuringNotifications.sln'
+    - 'src/StructuringNotifications.sln'
