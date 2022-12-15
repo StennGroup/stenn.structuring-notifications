@@ -29,7 +29,7 @@ public class OperationsApiClient : IOperationsApi
         string[] dunesToInclude,
         CancellationToken token)
     {
-        var path = $"/api/odata/v1/invoices/Default.ByOverdueDaysAndSuppliers/?overdueDays={delayDays}&" +
+        var path = $"api/odata/v1/invoices/Default.ByOverdueDaysAndSuppliers/?overdueDays={delayDays}&" +
                    $"suppliersToInclude={string.Join("%2C", dunesToInclude)}&" +
                    "$expand=deal($select=id,financingDate,investmentContractId)," +
                    "tradeRelation($select=id,sellerId,buyerId,doNotGenerateNotice,oneTimeNoticeId,sourceSystemId;" +
