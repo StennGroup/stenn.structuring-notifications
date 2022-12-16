@@ -16,7 +16,9 @@ namespace StructuringNotifications.WebApp.Configuration
         ISwaggerConfiguration,
         IOperationsApiConfiguration,
         IServiceBusConfiguration,
-        IOverdueNotificationsConfiguration
+        IOverdueNotificationsConfiguration,
+        IAuth0Configuration,
+        IInternalApiConfiguration
     {
         public string StructuringNotificationsDbContext { get; set; }
 
@@ -36,5 +38,7 @@ namespace StructuringNotifications.WebApp.Configuration
         public string OperationsApiAdTenantId { get; set; }
         public string[] CompanyDunsesToNotify { get; set; }
         public ServiceBusConfiguration ServiceBusConfiguration { get; set; }
+        public Auth0Configuration Auth0Configuration { get; set; } = null!;
+        public InternalApiConfiguration InternalApiConfiguration { get; set; } = null!;
     }
 }

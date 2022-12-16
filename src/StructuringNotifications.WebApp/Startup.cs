@@ -12,6 +12,8 @@ using idunno.Authentication.Basic;
 using Polly;
 using Polly.Contrib.WaitAndRetry;
 using Polly.Extensions.Http;
+using Seedwork.Auth.Token;
+using Seedwork.Auth.Utils;
 using Seedwork.HttpClientHelpers;
 using Seedwork.Web.HttpClientHandlers;
 using Seedwork.Configuration.Contracts;
@@ -30,7 +32,7 @@ namespace StructuringNotifications.WebApp
     public class Startup : SeedworkStartup<StructuringNotificationsConfiguration>
     {
         private const string AllowAllCorsPolicy = "AllowAll";
-        
+
         public Startup(IConfiguration configuration) : base(configuration)
         {
         }
@@ -98,11 +100,13 @@ namespace StructuringNotifications.WebApp
             services.AddPolicyRegistry()
                 .Add(ConfigurationDto!.HttpRetryPolicyName, retryPolicy);
         }
+
         /// <summary>
         /// </summary>
         protected override void AddHealthChecks(IHealthChecksBuilder builder)
         {
         }
+
         protected override void DoConfigure(IApplicationBuilder builder)
         {
             builder.UseForwardedHeaders();
@@ -114,20 +118,32 @@ namespace StructuringNotifications.WebApp
             builder.UseMiddleware<WebRequestOperationContextFillerMiddleware>();
             builder.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
+
         /// <summary>
         /// </summary>
-        protected override (bool Enabled, IReadOnlyCollection<string> Excludes) RequestResponseLogging => (true, new List<string>()
-        {
-            //swagger
-            @"\/index\.html.*",
-            @"\/swagger.*",
-            //api
-            @"\/\b",
-            @"\/favicon.*"
-        });
+        protected override (bool Enabled, IReadOnlyCollection<string> Excludes) RequestResponseLogging => (true,
+            new List<string>()
+            {
+                //swagger
+                @"\/index\.html.*",
+                @"\/swagger.*",
+                //api
+                @"\/\b",
+                @"\/favicon.*"
+            });
 
         private void ConfigureAuthentication(IServiceCollection services)
         {
+            AuthBuilder.CreateDefaultAuth0BearerAuthentication(services,
+                    ConfigurationDto.Auth0Configuration.Auth0Domain,
+                    ConfigurationDto.Auth0Configuration.Auth0Audience,
+                    ConfigurationDto.Auth0Configuration.Auth0OpenIdConnectConfigurationEndpoint)
+                .AddAuthLogger<AuthLogger>()
+                .AddTokenExtractor<DefaultTokenExtractor>()
+                .AddTokenValidator<InternalDefaultTokenValidator>()
+                .AddDefaultInternalApiWithoutUserFlowHandler()
+                .Build();
+            
             services.AddAuthentication(BasicAuthenticationDefaults.AuthenticationScheme)
                 .AddBasic(options =>
                 {
