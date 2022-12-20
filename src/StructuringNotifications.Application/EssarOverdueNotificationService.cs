@@ -87,7 +87,9 @@ public class EssarOverdueNotificationService
         var invoices =
             await _operationsApiClient.GetInvoicesListByDelayDaysAsync(notificationType.DelayDays + switchDays,
                 _configuration.CompanyDunsesToNotify, token);
-
+        
+        _logger.Debug("Found {InvoicesCount} overdue invoices for companies {Companies}", 
+            invoices.Count, _configuration.CompanyDunsesToNotify);
 
         if (!invoices.Any())
             return Enumerable.Empty<OverdueEvent>();
@@ -122,13 +124,16 @@ public class EssarOverdueNotificationService
     {
         var tradeRelation = groupedInvoice.First().TradeRelation;
         if (tradeRelation.Buyer.AllowToSendOverdueInformation != true && !notificationType.SendToSupport)
+        {
+            _logger.Debug("Overdue notifications disabled for trade relation {TradeRelationId}", tradeRelation.Id);
             return null;
+        }
 
         var allInvoiceAttachments = (await _operationsApiClient.GetDocumentAttachmentLinksAsync(
                 DocumentType.CommercialInvoice, groupedInvoice.Select(x => x.Id).ToArray(), token))
             .Where(x => x.FileSizeInBytes > 0)
             .ToList();
-
+        
         var dealIds = groupedInvoice.Select(x => x.Deal.Id).Distinct().ToArray();
         var allDealAttachments = (await _operationsApiClient.GetActualAttachmentsForDealsAsync(
                 DealAttachmentType.Notice, dealIds, token))
