@@ -54,14 +54,14 @@ public class OperationsApiClient : IOperationsApi
     public async Task<IReadOnlyCollection<DealAttachmentLinkDto>> GetActualAttachmentsForDealsAsync(
         DealAttachmentType dealAttachmentType, Guid[] dealIds, CancellationToken token)
         => await PostJsonAsync<Guid[], List<DealAttachmentLinkDto>>(
-               $"/api/v1/documents/getActualAttachmentsForDeals/{(int)dealAttachmentType}", dealIds, token)
+               $"api/v1/documents/getActualAttachmentsForDeals/{(int)dealAttachmentType}", dealIds, token)
            ?? new();
 
 
     public async Task<IReadOnlyCollection<DocumentLinkDto>> GetDocumentAttachmentLinksAsync(
         DocumentType documentType, Guid[] entityIds, CancellationToken token)
         => await PostJsonAsync<Guid[], List<DocumentLinkDto>>(
-               $"/api/v1/documents/getDocumentAttachmentLinks/{(int)documentType}", entityIds, token)
+               $"api/v1/documents/getDocumentAttachmentLinks/{(int)documentType}", entityIds, token)
            ?? new();
 
     public async Task<DeliveryGidcDto[]> GetFinancedGidc(DateTime date, CancellationToken token)
