@@ -43,7 +43,7 @@ public class OperationsApiClient : IOperationsApi
 
     public async Task<IReadOnlyCollection<OwnBankAccountDto>> GetOwnBankAccountsAsync(CancellationToken token)
     {
-        var data = await _httpClient.GetFromJsonAsync<OData<OwnBankAccountDto>>("/api/odata/v1/ownBankAccounts",
+        var data = await _httpClient.GetFromJsonAsync<OData<OwnBankAccountDto>>("api/odata/v1/ownBankAccounts",
             _serializerOptions, token);
 
         return data != null
