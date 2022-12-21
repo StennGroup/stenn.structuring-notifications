@@ -133,16 +133,6 @@ public class EssarOverdueNotificationService
                 DocumentType.CommercialInvoice, groupedInvoice.Select(x => x.Id).ToArray(), token))
             .Where(x => x.FileSizeInBytes > 0)
             .ToList();
-        
-        var dealIds = groupedInvoice.Select(x => x.Deal.Id).Distinct().ToArray();
-        var allDealAttachments = (await _operationsApiClient.GetActualAttachmentsForDealsAsync(
-                DealAttachmentType.Notice, dealIds, token))
-            .Where(x => x.FileSizeInBytes > 0)
-            .ToList();
-
-        var isAllDealAttachmentsAvailable = tradeRelation.DoNotGenerateNotice ||
-                                            !string.IsNullOrWhiteSpace(tradeRelation.OneTimeNoticeId) ||
-                                            dealIds.All(x => allDealAttachments.Any(y => y.DealId == x));
 
         var currencies = groupedInvoice
             .Select(x => x.RepaymentAmountNationalCurrency.Currency.IsoNumericCode)
@@ -153,13 +143,11 @@ public class EssarOverdueNotificationService
             .SelectAwaitWithCancellation(GetOwnBankAccount)
             .ToListAsync(token);
 
-        return CreateOverdueEvent(groupedInvoice, notificationType, allInvoiceAttachments, allDealAttachments,
-            isAllDealAttachmentsAvailable, bankDetails);
+        return CreateOverdueEvent(groupedInvoice, notificationType, allInvoiceAttachments, bankDetails);
     }
 
     private OverdueEvent CreateOverdueEvent(IGrouping<string, InvoiceDto> groupedInvoice,
         OverdueNotificationType notificationType, IReadOnlyCollection<DocumentLinkDto> allInvoiceAttachments,
-        IEnumerable<DealAttachmentLinkDto> allDealAttachments, bool isAllDealAttachmentsAvailable,
         IEnumerable<OwnBankAccountDto> bankDetails)
     {
         return new OverdueEvent
@@ -190,14 +178,8 @@ public class EssarOverdueNotificationService
                     ShipmentDate = x.ShipmentDate
                 })
                 .ToList(),
-            NoticeDocuments = allDealAttachments.Select(x => new LinkDto
-                {
-                    FileName = x.FileName,
-                    FileSizeInBytes = x.FileSizeInBytes,
-                    Url = x.Url
-                })
-                .ToList(),
-            IsAllNoticesAvailable = isAllDealAttachmentsAvailable,
+            NoticeDocuments = Array.Empty<LinkDto>(),
+            IsAllNoticesAvailable = false,
             StennBankDetails = bankDetails.Select(x => new BankDetailsDto
             {
                 Currency = x.Currency.Iso3LetterCode,
