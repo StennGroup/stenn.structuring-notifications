@@ -69,7 +69,11 @@ public class EssarOverdueNotificationService
         _logger.Debug("Found {NotificationsCount} notifications to send", notifications.Count);
 
         foreach (var notification in notifications)
+        {
+            _logger.Debug("Sending overdue event by trade relation {TradeRelationSourceSystemId}", 
+                notification.TradeRelationSourceSystemId);
             _messageSender.Publish(notification);
+        }
 
         _logger.Debug("Essar overdue notification sending was finished");
     }
