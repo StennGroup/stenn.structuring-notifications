@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Seedwork.UnitOfWork;
 using StructuringNotifications.Application;
 
 namespace StructuringNotifications.WebApp.Controllers;
@@ -14,10 +15,12 @@ namespace StructuringNotifications.WebApp.Controllers;
 public class EssarNotificationsController: ControllerBase
 {
     private readonly EssarOverdueNotificationService _overdueNotificationService;
+    private readonly ITaskExecutor _taskExecutor;
 
-    public EssarNotificationsController(EssarOverdueNotificationService overdueNotificationService)
+    public EssarNotificationsController(EssarOverdueNotificationService overdueNotificationService, ITaskExecutor taskExecutor)
     {
         _overdueNotificationService = overdueNotificationService;
+        _taskExecutor = taskExecutor;
     }
     
     /// <summary>
@@ -25,5 +28,9 @@ public class EssarNotificationsController: ControllerBase
     /// </summary>
     [HttpGet("send-overdue")]
     public Task GetTest(CancellationToken cancellationToken) 
-        => _overdueNotificationService.SendOverdueNotificationEventsAsync(cancellationToken);
+        => _taskExecutor.Execute(async () =>
+        {
+            await _overdueNotificationService.SendOverdueNotificationEventsAsync(cancellationToken);
+            return true;
+        }, cancellationToken);
 }
