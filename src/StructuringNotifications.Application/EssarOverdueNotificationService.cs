@@ -173,7 +173,7 @@ public class EssarOverdueNotificationService
                     // ReSharper disable once PossibleInvalidOperationException
                     FinancingDate = x.Deal.FinancingDate ?? throw new Exception("No deal financing date"),
                     GraceDate = x.GraceDate,
-                    Number = x.Number,
+                    Number = x.Number.EndsWith("-i") ? x.Number.TrimEnd('-', 'i') : x.Number,
                     RepaymentAmountNationalCurrency =
                         _mapper.Map<MoneyDto>(x.RepaymentAmountNationalCurrency),
                     RepaymentAmountOutstandingNationalCurrency =
