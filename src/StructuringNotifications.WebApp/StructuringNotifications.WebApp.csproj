@@ -4,6 +4,7 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="idunno.Authentication.Basic" />
         <PackageReference Include="Microsoft.ApplicationInsights.Profiler.AspNetCore" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" />
@@ -27,6 +28,7 @@
         <ProjectReference Include="..\StructuringNotifications.Application.Api\StructuringNotifications.Application.Api.csproj" />
         <ProjectReference Include="..\StructuringNotifications.Application\StructuringNotifications.Application.csproj" />
         <ProjectReference Include="..\StructuringNotifications.Contracts\StructuringNotifications.Contracts.csproj" />
+        <ProjectReference Include="..\StructuringNotifications.Interop\StructuringNotifications.Interop.csproj" />
     </ItemGroup>
     <ItemGroup>
       <Content Update="appsettings.Development.json">
@@ -36,4 +38,13 @@
         <DependentUpon>appsettings.json</DependentUpon>
       </Content>
     </ItemGroup>
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <NoWarn>1701;1702;1591</NoWarn>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <NoWarn>1701;1702;1591</NoWarn>
+    </PropertyGroup>
 </Project>
