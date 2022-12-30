@@ -3,23 +3,27 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using idunno.Authentication.Basic;
 using Polly;
 using Polly.Contrib.WaitAndRetry;
 using Polly.Extensions.Http;
+using Seedwork.Auth.Token;
+using Seedwork.Auth.Utils;
 using Seedwork.HttpClientHelpers;
 using Seedwork.Web.HttpClientHandlers;
 using Seedwork.Configuration.Contracts;
-using Seedwork.UnitOfWork.DependencyInjection;
+using Seedwork.UnitOfWork;
 using Seedwork.Web;
 using Seedwork.Web.Extensions;
-using Seedwork.Web.HealthChecks;
 using Seedwork.Web.Middleware;
 using StructuringNotifications.Application;
 using StructuringNotifications.Application.Api;
+using StructuringNotifications.Interop;
 using StructuringNotifications.WebApp.Configuration;
 using StructuringNotifications.WebApp.Infrastructure;
 
@@ -41,13 +45,13 @@ namespace StructuringNotifications.WebApp
             services.AddScoped<IUserContext>(p => p.GetRequiredService<SecurityContextProvider>().Context);
 
             ConfigureHttpClient(services);
+            ConfigureAuthentication(services);
 
             services.AddHttpContextAccessor();
-
+            services.AddScoped<ITaskExecutor, SimpleTaskExecutor>();
             services.AddControllers(options =>
                 {
                     options.Filters.Add<PerformanceLoggerFilter>();
-                    options.Filters.Add<TransactionControlFilter>();
                     options.Filters.Add(new AuthorizeFilter());
                 })
                 .AddJsonOptions(options => { options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
@@ -78,7 +82,9 @@ namespace StructuringNotifications.WebApp
             services.AddApiVersion();
 
             services
+                .AddOperationsClient(EnvironmentConfig.EnvironmentName)
                 .AddApplicationServices();
+            //change to trigger pipeline, remove this
         }
 
         private void ConfigureHttpClient(IServiceCollection services)
@@ -96,6 +102,8 @@ namespace StructuringNotifications.WebApp
                 .Add(ConfigurationDto!.HttpRetryPolicyName, retryPolicy);
         }
 
+        /// <summary>
+        /// </summary>
         protected override void AddHealthChecks(IHealthChecksBuilder builder)
         {
         }
@@ -112,15 +120,62 @@ namespace StructuringNotifications.WebApp
             builder.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
-        protected override (bool Enabled, IReadOnlyCollection<string> Excludes) RequestResponseLogging => (true, new List<string>()
-        {
-            //swagger
-            @"\/index\.html.*",
-            @"\/swagger.*",
-            //api
-            @"\/\b",
-            @"\/favicon.*"
-        });
+        /// <summary>
+        /// </summary>
+        protected override (bool Enabled, IReadOnlyCollection<string> Excludes) RequestResponseLogging => (true,
+            new List<string>()
+            {
+                //swagger
+                @"\/index\.html.*",
+                @"\/swagger.*",
+                //api
+                @"\/\b",
+                @"\/favicon.*"
+            });
 
+        private void ConfigureAuthentication(IServiceCollection services)
+        {
+            AuthBuilder.CreateDefaultAuth0BearerAuthentication(services,
+                    ConfigurationDto.Auth0Configuration.Auth0Domain,
+                    ConfigurationDto.Auth0Configuration.Auth0Audience,
+                    ConfigurationDto.Auth0Configuration.Auth0OpenIdConnectConfigurationEndpoint)
+                .AddAuthLogger<AuthLogger>()
+                .AddTokenExtractor<DefaultTokenExtractor>()
+                .AddTokenValidator<InternalDefaultTokenValidator>()
+                .AddDefaultInternalApiWithoutUserFlowHandler()
+                .Build();
+            
+            services.AddAuthentication(BasicAuthenticationDefaults.AuthenticationScheme)
+                .AddBasic(options =>
+                {
+                    options.Realm = "Structuring Notifier API";
+                    options.AllowInsecureProtocol = false;
+                    options.Events = new BasicAuthenticationEvents
+                    {
+                        OnValidateCredentials = ctx =>
+                        {
+                            if (ctx.Username == ConfigurationDto.BasicAuthentication.Login &&
+                                ctx.Password == ConfigurationDto.BasicAuthentication.Password)
+                            {
+                                var claims = new[]
+                                {
+                                    new Claim(ClaimTypes.NameIdentifier, ctx.Username, ClaimValueTypes.String,
+                                        ctx.Options.ClaimsIssuer),
+                                    new Claim(ClaimTypes.Name, ctx.Username, ClaimValueTypes.String,
+                                        ctx.Options.ClaimsIssuer)
+                                };
+                                ctx.Principal = new ClaimsPrincipal(new ClaimsIdentity(claims, ctx.Scheme.Name));
+                                ctx.Success();
+                            }
+                            else
+                            {
+                                ctx.Fail("Invalid login or password");
+                            }
+
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
+        }
     }
 }

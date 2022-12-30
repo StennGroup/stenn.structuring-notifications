@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using StructuringNotifications.WebApp.Infrastructure;
 
 namespace StructuringNotifications.WebApp
 {
